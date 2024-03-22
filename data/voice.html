@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Live Speech Recognition</title>
+</head>
+<body>
+    <button id="start" oneclick="startRecognition()">Start Recognition</button>
+    <button id="end" oneclick="stopRecognition()">Stop Recognition</button>
+    <p id="output"></p>
+
+    <script>
+        const output = document.getElementById('output');
+        let recognition;
+
+        function startRecognition() {
+            recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.lang = 'en-us';
+            recognition.continuous = true;
+
+            recognition.oneresult = function(event) {
+                const transcript = event.results[event.results.length - 1][0].transcript;
+                output.textContent += transcript;
+            };
+
+            recognition.onend = function() {
+                recognition.start()
+            };
+
+            recognition.start();
+        }
+
+        function stopRecognition(){
+            recognition.stop();
+            output.innerHTML=""
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
